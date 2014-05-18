@@ -30,3 +30,6 @@ Pods
 # AppCode specific files
 .idea/
 *.iml
+
+# Secrets
+Slate/Resources/Other-Sources/slate-config.plist

@@ -1,17 +1,44 @@
 PODS:
+  - AFNetworking (2.2.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.4):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.4)
+  - AFNetworking/Security (2.2.4)
+  - AFNetworking/Serialization (2.2.4)
+  - AFNetworking/UIKit (2.2.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - Bolts (1.0.0)
   - Expecta (0.3.0)
+  - MBProgressHUD (0.8)
   - OCMock (2.2.4)
   - OHHTTPStubs (3.1.1)
   - Specta (0.2.1)
 
 DEPENDENCIES:
+  - AFNetworking (~> 2.0)
+  - Bolts (~> 1.0.0)
   - Expecta
+  - MBProgressHUD (~> 0.8)
   - OCMock
   - OHHTTPStubs
   - Specta
 
 SPEC CHECKSUMS:
+  AFNetworking: 01aa7c3aa9a200b94943e54072a4373f14b3d219
+  Bolts: 45bceb8be6243d242caf74308563bba02c2af2a3
   Expecta: 322f1dc42610106a5ba9871b4924cf1635d80833
+  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   OCMock: 5008fae4b4789b8fc3e48cd7660f2eb5ef8ce89e
   OHHTTPStubs: be1c4263e49191b586d8313dcd6068da6f699d2c
   Specta: 2d06220591110c6d9757d8be8ecf8e63aa40dc2a

@@ -10,8 +10,13 @@
 		0B5D2BFFC52442FDBDD67CC1 /* SLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB06E6FA74B739E3C31CD /* SLAppDelegate.m */; };
 		506B38AA88F34A0BAA41B5F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4B8D01BE044BC5BCF72742 /* Foundation.framework */; };
 		603636F1E65A41778E01570F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB9BEBD83B40FC9402282C /* main.m */; };
+		8734D08B1929776B00F7A486 /* SLKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 8734D08A1929776B00F7A486 /* SLKeys.m */; };
+		8734D08E192978A500F7A486 /* SLColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 8734D08D192978A500F7A486 /* SLColorPalette.m */; };
+		8734D091192979CC00F7A486 /* SLFontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8734D090192979CC00F7A486 /* SLFontManager.m */; };
+		8734D09319297A1B00F7A486 /* slate-config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8734D09219297A1B00F7A486 /* slate-config.plist */; };
 		AD7DD976CF2D4F718C6B90F6 /* libPods-unit_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF9A0014094A4E9A8CC844CC /* libPods-unit_tests.a */; };
 		EDB96C6EB09547B2A4998B92 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C69E0FAF8D3415195CCE581 /* Images.xcassets */; };
+		F4DF5B648B73460C8A8E4C3E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 277F50D3996942178A2840D4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,15 +31,24 @@
 
 /* Begin PBXFileReference section */
 		06C7FFCB2A7D4092A78FB564 /* Slate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		277F50D3996942178A2840D4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		375A0272ABF94B40B191B554 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		3BEB9BEBD83B40FC9402282C /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C4B8D01BE044BC5BCF72742 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		725B41A9C35A4167BC0844B3 /* Slate-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Slate-Info.plist"; sourceTree = "<group>"; };
+		8734D0891929776B00F7A486 /* SLKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKeys.h; sourceTree = "<group>"; };
+		8734D08A1929776B00F7A486 /* SLKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKeys.m; sourceTree = "<group>"; };
+		8734D08C192978A500F7A486 /* SLColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLColorPalette.h; sourceTree = "<group>"; };
+		8734D08D192978A500F7A486 /* SLColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLColorPalette.m; sourceTree = "<group>"; };
+		8734D08F192979CC00F7A486 /* SLFontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLFontManager.h; sourceTree = "<group>"; };
+		8734D090192979CC00F7A486 /* SLFontManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLFontManager.m; sourceTree = "<group>"; };
+		8734D09219297A1B00F7A486 /* slate-config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "slate-config.plist"; sourceTree = "<group>"; };
 		8C69E0FAF8D3415195CCE581 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A064C337382C41368A32CD42 /* SLAppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SLAppDelegate.h; sourceTree = "<group>"; };
 		B06771E5ADBD4EDC8F50F292 /* Slate-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Slate-Prefix.pch"; sourceTree = "<group>"; };
 		BB9200C29B9D4D899801054D /* Pods-unit_tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.xcconfig"; path = "Pods/Pods-unit_tests.xcconfig"; sourceTree = "<group>"; };
 		EDBE8D15F8C74DE3ABADA937 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF146639FF8D4E3E91BC8ABA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		EF9A0014094A4E9A8CC844CC /* libPods-unit_tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-unit_tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F58CF4831E8D4268B515B0AA /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		FAFCB06E6FA74B739E3C31CD /* SLAppDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SLAppDelegate.m; sourceTree = "<group>"; };
@@ -54,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				506B38AA88F34A0BAA41B5F7 /* Foundation.framework in Frameworks */,
+				F4DF5B648B73460C8A8E4C3E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +161,7 @@
 				FCA739DAF0624CC9B9420017 /* Frameworks */,
 				0A18BA1E1F46471C82537D5E /* Products */,
 				BB9200C29B9D4D899801054D /* Pods-unit_tests.xcconfig */,
+				EF146639FF8D4E3E91BC8ABA /* Pods.xcconfig */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -181,6 +197,7 @@
 				725B41A9C35A4167BC0844B3 /* Slate-Info.plist */,
 				B06771E5ADBD4EDC8F50F292 /* Slate-Prefix.pch */,
 				3BEB9BEBD83B40FC9402282C /* main.m */,
+				8734D09219297A1B00F7A486 /* slate-config.plist */,
 			);
 			path = "Other-Sources";
 			sourceTree = "<group>";
@@ -228,6 +245,12 @@
 		D4B571B56EA244BF99FB815A /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				8734D0891929776B00F7A486 /* SLKeys.h */,
+				8734D08A1929776B00F7A486 /* SLKeys.m */,
+				8734D08C192978A500F7A486 /* SLColorPalette.h */,
+				8734D08D192978A500F7A486 /* SLColorPalette.m */,
+				8734D08F192979CC00F7A486 /* SLFontManager.h */,
+				8734D090192979CC00F7A486 /* SLFontManager.m */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -246,6 +269,7 @@
 			children = (
 				3399BE12BA9442418DCFE8E2 /* iOS */,
 				EF9A0014094A4E9A8CC844CC /* libPods-unit_tests.a */,
+				277F50D3996942178A2840D4 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -257,10 +281,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32E8232AE2764C7B8BB234C1 /* Build configuration list for PBXNativeTarget "Slate" */;
 			buildPhases = (
+				EF056D705239469C83F0DE7E /* Check Pods Manifest.lock */,
 				06CF8579106E4905A729BFB3 /* Sources */,
 				4FB83100B399454EA2990991 /* Frameworks */,
 				D1EA28F72AFD4FEC89384125 /* Resources */,
 				6F0342BB5034485DB3CA088D /* Warn for TODO and FIXME comments */,
+				89BBD2E031174EB1AF7BDB88 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -331,6 +357,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8734D09319297A1B00F7A486 /* slate-config.plist in Resources */,
 				EDB96C6EB09547B2A4998B92 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +378,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nFILE_EXTENSIONS=\"h|m|mm|c|cpp\"\nfind -E \"${SRCROOT}\" -ipath \"${SRCROOT}/pods\" -prune -o \\( -regex \".*\\.($FILE_EXTENSIONS)$\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n";
+		};
+		89BBD2E031174EB1AF7BDB88 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		994C2FE4FBE84D5DB148873E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -382,6 +424,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-unit_tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EF056D705239469C83F0DE7E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -389,8 +446,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8734D091192979CC00F7A486 /* SLFontManager.m in Sources */,
+				8734D08E192978A500F7A486 /* SLColorPalette.m in Sources */,
 				0B5D2BFFC52442FDBDD67CC1 /* SLAppDelegate.m in Sources */,
 				603636F1E65A41778E01570F /* main.m in Sources */,
+				8734D08B1929776B00F7A486 /* SLKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +528,7 @@
 		};
 		2B6746D31B44493D80B2CE9E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF146639FF8D4E3E91BC8ABA /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
@@ -584,6 +645,7 @@
 		};
 		D80735414EB746C49F02FDF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF146639FF8D4E3E91BC8ABA /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;

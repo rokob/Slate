@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EFA74DBBA4DD4FE395B012D3"
-               BuildableName = "UnitTests.octest"
+               BuildableName = "UnitTests.xctest"
                BlueprintName = "UnitTests"
                ReferencedContainer = "container:Slate.xcodeproj">
             </BuildableReference>
@@ -58,8 +58,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <AdditionalOptions>
-      </AdditionalOptions>
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -69,6 +67,8 @@
             ReferencedContainer = "container:Slate.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       shouldUseLaunchSchemeArgsEnv = "YES"
