@@ -32,4 +32,4 @@ Pods
 *.iml
 
 # Secrets
-Slate/Resources/Other-Sources/slate-config.plist
+Slate/Resources/Other-Sources/slate-config-secret.plist
