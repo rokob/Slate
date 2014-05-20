@@ -284,7 +284,9 @@
 				EF056D705239469C83F0DE7E /* Check Pods Manifest.lock */,
 				06CF8579106E4905A729BFB3 /* Sources */,
 				4FB83100B399454EA2990991 /* Frameworks */,
+				873200FD192C0D03005ACC46 /* Move the secret config to be the public config (must be before Copy Bundle Resources) */,
 				D1EA28F72AFD4FEC89384125 /* Resources */,
+				873200FE192C0E3C005ACC46 /* Move the secret config back to secret and restore the blank public config (must be after Copy Bundle Resources) */,
 				6F0342BB5034485DB3CA088D /* Warn for TODO and FIXME comments */,
 				89BBD2E031174EB1AF7BDB88 /* Copy Pods Resources */,
 			);
@@ -378,6 +380,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nFILE_EXTENSIONS=\"h|m|mm|c|cpp\"\nfind -E \"${SRCROOT}\" -ipath \"${SRCROOT}/pods\" -prune -o \\( -regex \".*\\.($FILE_EXTENSIONS)$\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n";
+		};
+		873200FD192C0D03005ACC46 /* Move the secret config to be the public config (must be before Copy Bundle Resources) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Move the secret config to be the public config (must be before Copy Bundle Resources)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/bin/too_many_secrets_pre.rb\"";
+		};
+		873200FE192C0E3C005ACC46 /* Move the secret config back to secret and restore the blank public config (must be after Copy Bundle Resources) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Move the secret config back to secret and restore the blank public config (must be after Copy Bundle Resources)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/bin/too_many_secrets_post.rb\"";
 		};
 		89BBD2E031174EB1AF7BDB88 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

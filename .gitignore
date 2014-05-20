@@ -33,3 +33,4 @@ Pods
 
 # Secrets
 Slate/Resources/Other-Sources/slate-config-secret.plist
+*.temp
