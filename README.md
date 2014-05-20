@@ -1,5 +1,7 @@
 # Slate #
 
+[![Build Status](https://travis-ci.org/rokob/Slate.svg?branch=master)](https://travis-ci.org/rokob/Slate)
+
 ## Setup ##
 
 Run `bin/setup`
