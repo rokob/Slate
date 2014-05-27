@@ -1,29 +1,64 @@
 //  Copyright (c) 2014 rokob. All rights reserved.
 
 #import "SLDockView.h"
+#import "SLDockViewInternal.h"
 
-typedef NS_ENUM(NSUInteger, SLDockState) {
-  SLDockStateDisabled = 0,
-  SLDockStateHidden,
-  SLDockStateShowing,
-  SLDockStateVisible,
-  SLDockStateSelected,
-  SLDockStateHiding
+#import "SLDockItem.h"
+
+static const CGFloat kViewSize = 50.0f;
+static const CGFloat kExtraOffsetY = 10.0f;
+static const CGFloat kSpacingY = 5.0f;
+static const CGFloat kItemSpacingY = (kViewSize + kSpacingY) / 2.0f;
+static const CGFloat kMaxOffsetX = kViewSize / 2.0f;
+static const CGFloat kRecognitionWidth = 75.0f;
+static const CGFloat kRecognitionHeight = 120.0f;
+
+static struct DockAnimation DockAnimation = {
+  .showing = {
+    .duration = 1.2f,
+    .damping = 0.8f,
+    .velocity = 8.0f
+  },
+  .hiding = {
+    .duration = 0.9f,
+    .damping = 0.8f,
+    .velocity = 5.0f
+  },
+  .selected = {
+    .duration = 1.4f,
+    .scaleUp = 1.2f,
+    .scaleUpDuration = 0.3f,
+    .scaleDown = 0.9f,
+    .scaleDownDuration = 0.3f
+  }
 };
 
 @interface SLDockView () <UIGestureRecognizerDelegate>
 {
-  NSArray *_navigationItems;
-  NSArray *_navigationViews;
   UIWindow *_window;
-  NSUInteger _selectedIndex;
+  NSArray *_navigationItems;
+
+  NSArray *_navigationViews;
   UILongPressGestureRecognizer *_revealGestureRecognizer;
+
   SLDockState _state;
+  NSUInteger _selectedIndex;
+
   UIColor *_defaultBackgroundColor;
+  UIColor *_selectedColor;
+
+  id<SLDockDelegate> __weak _delegate;
+  BOOL _delegateRespondsToWillShow;
+  BOOL _delegateRespondsToDidShow;
+  BOOL _delegateRespondsToWillHide;
+  BOOL _delegateRespondsToDidHide;
 }
 @end
 
 @implementation SLDockView
+
+#pragma mark -
+#pragma mark NSObject
 
 - (id)initWithWindow:(UIWindow *)window navigationItems:(NSArray *)items
 {
@@ -32,8 +67,35 @@ typedef NS_ENUM(NSUInteger, SLDockState) {
     _window = window;
     _selectedIndex = NSNotFound;
     _defaultBackgroundColor = [UIColor blackColor];
+    _selectedColor = [UIColor greenColor];
   }
   return self;
+}
+
+- (void)dealloc
+{
+  if (SLDockStateDisabled != _state) {
+    [_window removeGestureRecognizer:_revealGestureRecognizer];
+  }
+}
+
+#pragma mark -
+#pragma mark Public API
+
+- (id<SLDockDelegate>)delegate
+{
+  return _delegate;
+}
+
+- (void)setDelegate:(id<SLDockDelegate>)delegate
+{
+  if (_delegate != delegate) {
+    _delegate = delegate;
+    _delegateRespondsToWillShow = [_delegate respondsToSelector:@selector(willShowDockView:)];
+    _delegateRespondsToDidShow = [_delegate respondsToSelector:@selector(didShowDockView:)];
+    _delegateRespondsToWillHide = [_delegate respondsToSelector:@selector(willHideDockView:)];
+    _delegateRespondsToDidHide = [_delegate respondsToSelector:@selector(didHideDockView:)];
+  }
 }
 
 - (void)setEnabled:(BOOL)enabled
@@ -47,6 +109,9 @@ typedef NS_ENUM(NSUInteger, SLDockState) {
     [self transitionToState:SLDockStateDisabled];
   }
 }
+
+#pragma mark -
+#pragma mark State Machine
 
 - (void)transitionToState:(SLDockState)newState
 {
@@ -65,20 +130,27 @@ typedef NS_ENUM(NSUInteger, SLDockState) {
       if (oldState == SLDockStateDisabled) {
         _navigationViews = [self constructNavigationViewsWithItems:_navigationItems];
         [_window addGestureRecognizer:self.revealGestureRecognizer];
+      } else {
+        if (_delegateRespondsToDidHide) {
+          [_delegate didHideDockView:self];
+        }
       }
       break;
     case SLDockStateShowing:
     {
-      [UIView animateWithDuration:1.0f
-                            delay:0.0
-           usingSpringWithDamping:0.8f
-            initialSpringVelocity:2.0f
+      if (_delegateRespondsToWillShow) {
+        [_delegate willShowDockView:self];
+      }
+      [UIView animateWithDuration:DockAnimation.showing.duration
+                            delay:0
+           usingSpringWithDamping:DockAnimation.showing.damping
+            initialSpringVelocity:DockAnimation.showing.velocity
                           options:UIViewAnimationOptionCurveEaseInOut
                        animations:^{
                          [self->_navigationViews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
                            BOOL even = idx%2==0;
-                           CGFloat offset = idx==0 ? 25.0f : 25.0f - 12.5f*(idx - (even ? 1 : 0));
-                           view.center = CGPointMake(50.0f+offset, view.center.y);
+                           CGFloat offset = idx==0 ? kMaxOffsetX : kMaxOffsetX - (kMaxOffsetX/2.0f)*(idx - (even ? 1 : 0));
+                           view.center = CGPointMake(kViewSize+offset, view.center.y);
                          }];
                        }
                        completion:^(BOOL finished){
@@ -88,19 +160,24 @@ typedef NS_ENUM(NSUInteger, SLDockState) {
       break;
     case SLDockStateVisible:
     {
-
+      if (_delegateRespondsToDidShow) {
+        [_delegate didShowDockView:self];
+      }
     }
       break;
     case SLDockStateHiding:
     {
-      [UIView animateWithDuration:0.7f
-                            delay:0.0
-           usingSpringWithDamping:0.8f
-            initialSpringVelocity:3.0f
+      if (_delegateRespondsToWillHide) {
+        [_delegate willHideDockView:self];
+      }
+      [UIView animateWithDuration:DockAnimation.hiding.duration
+                            delay:0
+           usingSpringWithDamping:DockAnimation.hiding.damping
+            initialSpringVelocity:DockAnimation.hiding.velocity
                           options:UIViewAnimationOptionCurveEaseInOut
                        animations:^{
                          [self->_navigationViews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-                           view.center = CGPointMake(-50.0f, view.center.y);
+                           view.center = CGPointMake(-kViewSize, view.center.y);
                          }];
                        }
                        completion:^(BOOL finished){
@@ -113,23 +190,31 @@ typedef NS_ENUM(NSUInteger, SLDockState) {
       break;
     case SLDockStateSelected:
     {
+      id<SLDockItem> selectedItem = (id<SLDockItem>)[_navigationItems objectAtIndex:_selectedIndex];
+      [self->_delegate dockView:self didSelectItem:selectedItem];
+      if (_delegateRespondsToWillHide) {
+        [_delegate willHideDockView:self];
+      }
+
       UIView *selectedView = (UIView *)[_navigationViews objectAtIndex:_selectedIndex];
       UIColor *colorToRestore = selectedView.backgroundColor;
-      [UIView animateKeyframesWithDuration:1.5f
+      [UIView animateKeyframesWithDuration:DockAnimation.selected.duration
                                      delay:0.0
                                    options:UIViewKeyframeAnimationOptionCalculationModeCubic
                                 animations:^{
-                                  [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0.5f animations:^{
-                                    selectedView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2f, 1.2f);
-                                    [selectedView setBackgroundColor:[UIColor greenColor]];
+                                  [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:DockAnimation.selected.scaleUpDuration animations:^{
+                                    selectedView.transform = CGAffineTransformScale(CGAffineTransformIdentity, DockAnimation.selected.scaleUp, DockAnimation.selected.scaleUp);
+                                    [selectedView setBackgroundColor:self->_selectedColor];
                                   }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.5f relativeDuration:0.25f animations:^{
-                                    selectedView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9f, 0.9f);
+                                  [UIView addKeyframeWithRelativeStartTime:DockAnimation.selected.scaleUpDuration relativeDuration:DockAnimation.selected.scaleDownDuration animations:^{
+                                    selectedView.transform = CGAffineTransformScale(CGAffineTransformIdentity, DockAnimation.selected.scaleDown, DockAnimation.selected.scaleDown);
                                   }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.75f relativeDuration:0.25f animations:^{
+                                  CGFloat hideStart = DockAnimation.selected.scaleUpDuration + DockAnimation.selected.scaleDownDuration;
+                                  CGFloat hideDuration = 1.0f - hideStart;
+                                  [UIView addKeyframeWithRelativeStartTime:hideStart relativeDuration:hideDuration animations:^{
                                     selectedView.transform = CGAffineTransformIdentity;
                                     [self->_navigationViews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-                                      view.center = CGPointMake(-50.0f, view.center.y);
+                                      view.center = CGPointMake(-kViewSize, view.center.y);
                                     }];
                                   }];
                                 }
@@ -142,18 +227,21 @@ typedef NS_ENUM(NSUInteger, SLDockState) {
   }
 }
 
+#pragma mark -
+#pragma mark Lazy Construction
+
 - (NSArray *)constructNavigationViewsWithItems:(NSArray *)items
 {
   CGRect navFrame = CGRectZero;
   NSMutableArray *navViews = [NSMutableArray array];
-  for (NSInteger i=0; i<5; i++) {
-    navFrame.size = CGSizeMake(50.0f, 50.0f);
+  for (NSInteger i=0; i < (NSInteger)[items count]; i++) {
+    navFrame.size = CGSizeMake(kViewSize, kViewSize);
     UIView *navView = [[UIView alloc] initWithFrame:navFrame];
     BOOL even = i%2==0;
-    CGFloat offset = i==0 ? 0 : 27.5f * ( (i+1)*(even?-1:1) + (even?1:0) );
-    navView.center = CGPointMake(-50.0f, _window.center.y+offset);
+    CGFloat offset = i==0 ? 0 : kItemSpacingY * ( (i+1)*(even?-1:1) + (even?1:0) );
+    navView.center = CGPointMake(-kViewSize, _window.center.y+kExtraOffsetY+offset);
     [navView setBackgroundColor:_defaultBackgroundColor];
-    navView.layer.cornerRadius = 25.0f;
+    navView.layer.cornerRadius = kViewSize/2.0f;
     [navViews addObject:navView];
     [_window addSubview:navView];
   }
@@ -170,6 +258,9 @@ typedef NS_ENUM(NSUInteger, SLDockState) {
   return _revealGestureRecognizer;
 }
 
+#pragma mark -
+#pragma mark Handle Gesture
+
 - (void)didLongPress
 {
   if (_revealGestureRecognizer.state == UIGestureRecognizerStateBegan) {
@@ -177,7 +268,7 @@ typedef NS_ENUM(NSUInteger, SLDockState) {
   } else if (_revealGestureRecognizer.state == UIGestureRecognizerStateEnded) {
     CGPoint location = [_revealGestureRecognizer locationInView:_window];
     NSUInteger selectedIndex = [_navigationViews indexOfObjectPassingTest:^BOOL(UIView *view, NSUInteger idx, BOOL *stop) {
-      return CGRectContainsPoint(view.frame, location) ? YES : NO;
+      return CGRectContainsPoint(view.frame, location) ? YES : NO; // CGRectContainsPoint -> bool (not BOOL)
     }];
     if (selectedIndex != NSNotFound) {
       _selectedIndex = selectedIndex;
@@ -188,11 +279,14 @@ typedef NS_ENUM(NSUInteger, SLDockState) {
   }
 }
 
+#pragma mark -
+#pragma mark UIGestureRecognizerDelegate
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
   if (self.revealGestureRecognizer != gestureRecognizer) { return NO; }
   CGPoint location = [gestureRecognizer locationInView:_window];
-  return location.x < 75.0f && fabsf(location.y - _window.frame.size.height/2) < 75.0f;
+  return location.x < kRecognitionWidth && fabsf(location.y - _window.frame.size.height/2) < kRecognitionHeight;
 }
 
 @end
