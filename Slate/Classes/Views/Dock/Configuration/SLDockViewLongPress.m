@@ -1,7 +1,7 @@
 //  Copyright (c) 2014 rokob. All rights reserved.
 
-#import "SLDockViewLeftLongPress.h"
-#import "SLDockViewLeftLongPressInternal.h"
+#import "SLDockViewLongPress.h"
+#import "SLDockViewLongPressInternal.h"
 
 #import "SLDockDelegate.h"
 
@@ -35,7 +35,7 @@ static struct DockAnimation DockAnimation = {
   }
 };
 
-@interface SLDockViewLeftLongPress () <UIGestureRecognizerDelegate>
+@interface SLDockViewLongPress () <UIGestureRecognizerDelegate>
 {
   UIWindow *_window;
   NSArray *_navigationItems;
@@ -46,26 +46,30 @@ static struct DockAnimation DockAnimation = {
 
   NSUInteger _selectedIndex;
 
-  UIColor *_defaultBackgroundColor;
-  UIColor *_selectedColor;
+  SLDockContext *_context;
+  BOOL _left;
+  CGFloat _shift;
 }
 @end
 
-@implementation SLDockViewLeftLongPress
+@implementation SLDockViewLongPress
 
 @synthesize delegate = _delegate;
 
 #pragma mark -
 #pragma mark NSObject
 
-- (id)initWithWindow:(UIWindow *)window navigationItems:(NSArray *)items
+- (id)initWithWindow:(UIWindow *)window navigationItems:(NSArray *)items context:(SLDockContext *)context
 {
   if ((self = [super init])) {
     _navigationItems = [items copy];
     _window = window;
     _selectedIndex = NSNotFound;
-    _defaultBackgroundColor = [UIColor blackColor];
-    _selectedColor = [UIColor greenColor];
+    _context = context;
+    _left = _context.location & SLDockLocationLeft;
+    if ((_context.location & SLDockLocationLeft) == 0) {
+      _shift = _window.frame.size.width;
+    }
   }
   return self;
 }
@@ -103,7 +107,8 @@ static struct DockAnimation DockAnimation = {
                          [self->_navigationViews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
                            BOOL even = idx%2==0;
                            CGFloat offset = idx==0 ? kMaxOffsetX : kMaxOffsetX - (kMaxOffsetX/2.0f)*(idx - (even ? 1 : 0));
-                           view.center = CGPointMake(kViewSize+offset, view.center.y);
+                           CGFloat x = self->_left ? kViewSize+offset : self->_shift - (kViewSize+offset);
+                           view.center = CGPointMake(x, view.center.y);
                          }];
                        }
                        completion:^(BOOL finished){
@@ -124,12 +129,13 @@ static struct DockAnimation DockAnimation = {
                           options:UIViewAnimationOptionCurveEaseInOut
                        animations:^{
                          [self->_navigationViews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-                           view.center = CGPointMake(-kViewSize, view.center.y);
+                           CGFloat x = self->_left ? -kViewSize : self->_shift+kViewSize;
+                           view.center = CGPointMake(x, view.center.y);
                          }];
                        }
                        completion:^(BOOL finished){
                          [self->_navigationViews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-                           [view setBackgroundColor:self->_defaultBackgroundColor];
+                           [view setBackgroundColor:self->_context.backgroundColor];
                          }];
                          [self->_delegate transitionToState:SLDockStateHidden];
                        }];
@@ -149,7 +155,7 @@ static struct DockAnimation DockAnimation = {
                                 animations:^{
                                   [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:DockAnimation.selected.scaleUpDuration animations:^{
                                     selectedView.transform = CGAffineTransformScale(CGAffineTransformIdentity, DockAnimation.selected.scaleUp, DockAnimation.selected.scaleUp);
-                                    [selectedView setBackgroundColor:self->_selectedColor];
+                                    [selectedView setBackgroundColor:self->_context.selectedColor];
                                   }];
                                   [UIView addKeyframeWithRelativeStartTime:DockAnimation.selected.scaleUpDuration relativeDuration:DockAnimation.selected.scaleDownDuration animations:^{
                                     selectedView.transform = CGAffineTransformScale(CGAffineTransformIdentity, DockAnimation.selected.scaleDown, DockAnimation.selected.scaleDown);
@@ -159,7 +165,8 @@ static struct DockAnimation DockAnimation = {
                                   [UIView addKeyframeWithRelativeStartTime:hideStart relativeDuration:hideDuration animations:^{
                                     selectedView.transform = CGAffineTransformIdentity;
                                     [self->_navigationViews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-                                      view.center = CGPointMake(-kViewSize, view.center.y);
+                                      CGFloat x = self->_left ? -kViewSize : self->_shift+kViewSize;
+                                      view.center = CGPointMake(x, view.center.y);
                                     }];
                                   }];
                                 }
@@ -184,8 +191,9 @@ static struct DockAnimation DockAnimation = {
     UIView *navView = [[UIView alloc] initWithFrame:navFrame];
     BOOL even = i%2==0;
     CGFloat offset = i==0 ? 0 : kItemSpacingY * ( (i+1)*(even?-1:1) + (even?1:0) );
-    navView.center = CGPointMake(-kViewSize, _window.center.y+kExtraOffsetY+offset);
-    [navView setBackgroundColor:_defaultBackgroundColor];
+    CGFloat x = _left ? -kViewSize : _shift+kViewSize;
+    navView.center = CGPointMake(x, _window.center.y+kExtraOffsetY+offset);
+    [navView setBackgroundColor:_context.backgroundColor];
     navView.layer.cornerRadius = kViewSize/2.0f;
     [navViews addObject:navView];
     [_window addSubview:navView];
@@ -256,7 +264,9 @@ static struct DockAnimation DockAnimation = {
 
   if (self.revealGestureRecognizer != gestureRecognizer) { return NO; }
   CGPoint location = [gestureRecognizer locationInView:_window];
-  return location.x < kRecognitionWidth && fabsf(location.y - _window.frame.size.height/2) < kRecognitionHeight;
+  BOOL yHit = fabsf(location.y - _window.frame.size.height/2) < kRecognitionHeight;
+  BOOL xHit = _left ? location.x < kRecognitionWidth : location.x > _shift - kRecognitionWidth;
+  return xHit && yHit;
 }
 
 @end

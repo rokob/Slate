@@ -3,7 +3,7 @@
 #import "SLDockView.h"
 
 #import "SLDockViewConfiguration.h"
-#import "SLDockViewLeftLongPress.h"
+#import "SLDockViewLongPress.h"
 
 @interface SLDockView () <SLDockViewConfigurationDelegate>
 {
@@ -33,10 +33,13 @@
 
   switch (dockStyle) {
     case SLDockStyleLeftLongPress:
-      _configuration = [[SLDockViewLeftLongPress alloc] initWithWindow:window navigationItems:items];
+      _configuration = [[SLDockViewLongPress alloc] initWithWindow:window navigationItems:items context:[SLDockContext defaultLeftContext]];
+      break;
     case SLDockStyleLowerLeftButton:
     case SLDockStyleLowerRightButton:
+      break;
     case SLDockStyleRightLongPress:
+      _configuration = [[SLDockViewLongPress alloc] initWithWindow:window navigationItems:items context:[SLDockContext defaultRightContext]];
       break;
   }
   [_configuration setDelegate:self];

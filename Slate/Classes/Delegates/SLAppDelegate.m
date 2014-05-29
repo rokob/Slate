@@ -21,7 +21,9 @@
 
   SLCreateNavigationController *navController = [[SLCreateNavigationController alloc] init];
 
-  _dock = [[SLDockView alloc] initWithWindow:self.window navigationItems:[self navigationItems] dockStyle:SLDockStyleLeftLongPress];
+  _dock = [[SLDockView alloc] initWithWindow:self.window
+                             navigationItems:[self navigationItems]
+                                   dockStyle:SLDockStyleRightLongPress];
   _dock.delegate = self;
   [_dock setEnabled:YES];
 

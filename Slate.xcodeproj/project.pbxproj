@@ -14,7 +14,8 @@
 		8734D08E192978A500F7A486 /* SLColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 8734D08D192978A500F7A486 /* SLColorPalette.m */; };
 		8734D091192979CC00F7A486 /* SLFontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8734D090192979CC00F7A486 /* SLFontManager.m */; };
 		8734D09319297A1B00F7A486 /* slate-config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8734D09219297A1B00F7A486 /* slate-config.plist */; };
-		873B117D1936EADB008633FA /* SLDockViewLeftLongPress.m in Sources */ = {isa = PBXBuildFile; fileRef = 873B117B1936EADB008633FA /* SLDockViewLeftLongPress.m */; };
+		873B117D1936EADB008633FA /* SLDockViewLongPress.m in Sources */ = {isa = PBXBuildFile; fileRef = 873B117B1936EADB008633FA /* SLDockViewLongPress.m */; };
+		876638F5193709F2004DFF8F /* SLDockViewConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 876638F4193709F2004DFF8F /* SLDockViewConfiguration.m */; };
 		876FB78E1934114800539357 /* SLCreateNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 876FB78D1934114800539357 /* SLCreateNavigationController.m */; };
 		876FB79119344FE800539357 /* SLDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 876FB79019344FE800539357 /* SLDockView.m */; };
 		876FB7941934739400539357 /* SLDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 876FB7931934739400539357 /* SLDockItem.m */; };
@@ -49,9 +50,10 @@
 		8734D09219297A1B00F7A486 /* slate-config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "slate-config.plist"; sourceTree = "<group>"; };
 		873B11741936D8CF008633FA /* SLDockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockDelegate.h; sourceTree = "<group>"; };
 		873B11791936EADB008633FA /* SLDockViewConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockViewConfiguration.h; sourceTree = "<group>"; };
-		873B117A1936EADB008633FA /* SLDockViewLeftLongPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockViewLeftLongPress.h; sourceTree = "<group>"; };
-		873B117B1936EADB008633FA /* SLDockViewLeftLongPress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockViewLeftLongPress.m; sourceTree = "<group>"; };
-		873B117C1936EADB008633FA /* SLDockViewLeftLongPressInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockViewLeftLongPressInternal.h; sourceTree = "<group>"; };
+		873B117A1936EADB008633FA /* SLDockViewLongPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockViewLongPress.h; sourceTree = "<group>"; };
+		873B117B1936EADB008633FA /* SLDockViewLongPress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockViewLongPress.m; sourceTree = "<group>"; };
+		873B117C1936EADB008633FA /* SLDockViewLongPressInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockViewLongPressInternal.h; sourceTree = "<group>"; };
+		876638F4193709F2004DFF8F /* SLDockViewConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockViewConfiguration.m; sourceTree = "<group>"; };
 		876FB78C1934114800539357 /* SLCreateNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCreateNavigationController.h; sourceTree = "<group>"; };
 		876FB78D1934114800539357 /* SLCreateNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLCreateNavigationController.m; sourceTree = "<group>"; };
 		876FB78F19344FE800539357 /* SLDockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockView.h; sourceTree = "<group>"; };
@@ -212,9 +214,10 @@
 			isa = PBXGroup;
 			children = (
 				873B11791936EADB008633FA /* SLDockViewConfiguration.h */,
-				873B117A1936EADB008633FA /* SLDockViewLeftLongPress.h */,
-				873B117B1936EADB008633FA /* SLDockViewLeftLongPress.m */,
-				873B117C1936EADB008633FA /* SLDockViewLeftLongPressInternal.h */,
+				876638F4193709F2004DFF8F /* SLDockViewConfiguration.m */,
+				873B117A1936EADB008633FA /* SLDockViewLongPress.h */,
+				873B117B1936EADB008633FA /* SLDockViewLongPress.m */,
+				873B117C1936EADB008633FA /* SLDockViewLongPressInternal.h */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -519,7 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8734D091192979CC00F7A486 /* SLFontManager.m in Sources */,
-				873B117D1936EADB008633FA /* SLDockViewLeftLongPress.m in Sources */,
+				873B117D1936EADB008633FA /* SLDockViewLongPress.m in Sources */,
 				8734D08E192978A500F7A486 /* SLColorPalette.m in Sources */,
 				876FB78E1934114800539357 /* SLCreateNavigationController.m in Sources */,
 				876FB79119344FE800539357 /* SLDockView.m in Sources */,
@@ -527,6 +530,7 @@
 				876FB7941934739400539357 /* SLDockItem.m in Sources */,
 				603636F1E65A41778E01570F /* main.m in Sources */,
 				8734D08B1929776B00F7A486 /* SLKeys.m in Sources */,
+				876638F5193709F2004DFF8F /* SLDockViewConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

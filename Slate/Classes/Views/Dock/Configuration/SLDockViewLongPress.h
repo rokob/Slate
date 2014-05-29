@@ -4,6 +4,6 @@
 
 #import "SLDockViewConfiguration.h"
 
-@interface SLDockViewLeftLongPress : NSObject <SLDockViewConfiguration>
+@interface SLDockViewLongPress : NSObject <SLDockViewConfiguration>
 
 @end
