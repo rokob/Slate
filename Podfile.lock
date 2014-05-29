@@ -23,6 +23,7 @@ PODS:
   - MBProgressHUD (0.8)
   - OCMock (2.2.4)
   - OHHTTPStubs (3.1.1)
+  - pop (1.0.5)
   - Specta (0.2.1)
 
 DEPENDENCIES:
@@ -32,15 +33,17 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.8)
   - OCMock
   - OHHTTPStubs
+  - pop (~> 1.0)
   - Specta
 
 SPEC CHECKSUMS:
-  AFNetworking: 01aa7c3aa9a200b94943e54072a4373f14b3d219
-  Bolts: 45bceb8be6243d242caf74308563bba02c2af2a3
-  Expecta: 322f1dc42610106a5ba9871b4924cf1635d80833
-  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
-  OCMock: 5008fae4b4789b8fc3e48cd7660f2eb5ef8ce89e
-  OHHTTPStubs: be1c4263e49191b586d8313dcd6068da6f699d2c
-  Specta: 2d06220591110c6d9757d8be8ecf8e63aa40dc2a
+  AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
+  Bolts: 0d6132ce6856f2eac784cfeb3fc3feceac15eae3
+  Expecta: ce8a51b9fad15a2cd573b291cb2909aaed865350
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
+  OCMock: 6db79185520e24f9f299548f2b8b07e41d881bd5
+  OHHTTPStubs: 58b42d245ad2416bac170ce18e1383913d17e315
+  pop: 75fa2b33934200a8a68abb449ac1726fcf7e43b9
+  Specta: 9141310f46b1f68b676650ff2854e1ed0b74163a
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1
