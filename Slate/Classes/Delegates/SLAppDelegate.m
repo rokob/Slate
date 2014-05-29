@@ -23,7 +23,7 @@
 
   _dock = [[SLDockView alloc] initWithWindow:self.window
                              navigationItems:[self navigationItems]
-                                   dockStyle:SLDockStyleRightLongPress];
+                                   dockStyle:SLDockStyleLowerRightButton];
   _dock.delegate = self;
   [_dock setEnabled:YES];
 

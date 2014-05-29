@@ -4,6 +4,7 @@
 
 #import "SLDockViewConfiguration.h"
 #import "SLDockViewLongPress.h"
+#import "SLDockViewButton.h"
 
 @interface SLDockView () <SLDockViewConfigurationDelegate>
 {
@@ -36,7 +37,10 @@
       _configuration = [[SLDockViewLongPress alloc] initWithWindow:window navigationItems:items context:[SLDockContext defaultLeftContext]];
       break;
     case SLDockStyleLowerLeftButton:
+      _configuration = [[SLDockViewButton alloc] initWithWindow:window navigationItems:items context:[SLDockContext defaultLeftBottomContext]];
+      break;
     case SLDockStyleLowerRightButton:
+      _configuration = [[SLDockViewButton alloc] initWithWindow:window navigationItems:items context:[SLDockContext defaultRightBottomContext]];
       break;
     case SLDockStyleRightLongPress:
       _configuration = [[SLDockViewLongPress alloc] initWithWindow:window navigationItems:items context:[SLDockContext defaultRightContext]];

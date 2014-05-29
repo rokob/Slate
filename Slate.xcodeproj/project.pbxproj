@@ -16,6 +16,7 @@
 		8734D09319297A1B00F7A486 /* slate-config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8734D09219297A1B00F7A486 /* slate-config.plist */; };
 		873B117D1936EADB008633FA /* SLDockViewLongPress.m in Sources */ = {isa = PBXBuildFile; fileRef = 873B117B1936EADB008633FA /* SLDockViewLongPress.m */; };
 		876638F5193709F2004DFF8F /* SLDockViewConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 876638F4193709F2004DFF8F /* SLDockViewConfiguration.m */; };
+		876638F8193711AD004DFF8F /* SLDockViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 876638F7193711AD004DFF8F /* SLDockViewButton.m */; };
 		876FB78E1934114800539357 /* SLCreateNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 876FB78D1934114800539357 /* SLCreateNavigationController.m */; };
 		876FB79119344FE800539357 /* SLDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 876FB79019344FE800539357 /* SLDockView.m */; };
 		876FB7941934739400539357 /* SLDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 876FB7931934739400539357 /* SLDockItem.m */; };
@@ -54,6 +55,8 @@
 		873B117B1936EADB008633FA /* SLDockViewLongPress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockViewLongPress.m; sourceTree = "<group>"; };
 		873B117C1936EADB008633FA /* SLDockViewLongPressInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockViewLongPressInternal.h; sourceTree = "<group>"; };
 		876638F4193709F2004DFF8F /* SLDockViewConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockViewConfiguration.m; sourceTree = "<group>"; };
+		876638F6193711AD004DFF8F /* SLDockViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockViewButton.h; sourceTree = "<group>"; };
+		876638F7193711AD004DFF8F /* SLDockViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockViewButton.m; sourceTree = "<group>"; };
 		876FB78C1934114800539357 /* SLCreateNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCreateNavigationController.h; sourceTree = "<group>"; };
 		876FB78D1934114800539357 /* SLCreateNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLCreateNavigationController.m; sourceTree = "<group>"; };
 		876FB78F19344FE800539357 /* SLDockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockView.h; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 				873B117A1936EADB008633FA /* SLDockViewLongPress.h */,
 				873B117B1936EADB008633FA /* SLDockViewLongPress.m */,
 				873B117C1936EADB008633FA /* SLDockViewLongPressInternal.h */,
+				876638F6193711AD004DFF8F /* SLDockViewButton.h */,
+				876638F7193711AD004DFF8F /* SLDockViewButton.m */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -527,6 +532,7 @@
 				876FB78E1934114800539357 /* SLCreateNavigationController.m in Sources */,
 				876FB79119344FE800539357 /* SLDockView.m in Sources */,
 				0B5D2BFFC52442FDBDD67CC1 /* SLAppDelegate.m in Sources */,
+				876638F8193711AD004DFF8F /* SLDockViewButton.m in Sources */,
 				876FB7941934739400539357 /* SLDockItem.m in Sources */,
 				603636F1E65A41778E01570F /* main.m in Sources */,
 				8734D08B1929776B00F7A486 /* SLKeys.m in Sources */,
