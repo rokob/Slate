@@ -1,16 +1,7 @@
 //  Copyright (c) 2014 rokob. All rights reserved.
 
-#ifndef _SL_DOCK_VIEW_INTERNAL_H_
-#define _SL_DOCK_VIEW_INTERNAL_H_
-
-typedef NS_ENUM(NSUInteger, SLDockState) {
-  SLDockStateDisabled = 0,
-  SLDockStateHidden,
-  SLDockStateShowing,
-  SLDockStateVisible,
-  SLDockStateSelected,
-  SLDockStateHiding
-};
+#ifndef _SL_DOCK_VIEW_LEFT_LONG_PRESS_INTERNAL_H_
+#define _SL_DOCK_VIEW_LEFT_LONG_PRESS_INTERNAL_H_
 
 struct DockAnimation {
   struct Showing {
@@ -32,4 +23,4 @@ struct DockAnimation {
   } selected;
 };
 
-#endif // _SL_DOCK_VIEW_INTERNAL_H_
+#endif // _SL_DOCK_VIEW_LEFT_LONG_PRESS_INTERNAL_H_
