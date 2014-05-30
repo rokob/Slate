@@ -20,6 +20,8 @@
 		876FB78E1934114800539357 /* SLCreateNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 876FB78D1934114800539357 /* SLCreateNavigationController.m */; };
 		876FB79119344FE800539357 /* SLDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 876FB79019344FE800539357 /* SLDockView.m */; };
 		876FB7941934739400539357 /* SLDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 876FB7931934739400539357 /* SLDockItem.m */; };
+		87C2EFB51938705E00BED876 /* SLDockViewDraggableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 87C2EFB41938705E00BED876 /* SLDockViewDraggableButton.m */; };
+		87C2EFB81938748F00BED876 /* SLDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 87C2EFB71938748F00BED876 /* SLDockWindow.m */; };
 		AD7DD976CF2D4F718C6B90F6 /* libPods-unit_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF9A0014094A4E9A8CC844CC /* libPods-unit_tests.a */; };
 		EDB96C6EB09547B2A4998B92 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C69E0FAF8D3415195CCE581 /* Images.xcassets */; };
 		F4DF5B648B73460C8A8E4C3E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 277F50D3996942178A2840D4 /* libPods.a */; };
@@ -63,6 +65,10 @@
 		876FB79019344FE800539357 /* SLDockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockView.m; sourceTree = "<group>"; };
 		876FB7921934739400539357 /* SLDockItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockItem.h; sourceTree = "<group>"; };
 		876FB7931934739400539357 /* SLDockItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockItem.m; sourceTree = "<group>"; };
+		87C2EFB31938705E00BED876 /* SLDockViewDraggableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockViewDraggableButton.h; sourceTree = "<group>"; };
+		87C2EFB41938705E00BED876 /* SLDockViewDraggableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockViewDraggableButton.m; sourceTree = "<group>"; };
+		87C2EFB61938748F00BED876 /* SLDockWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDockWindow.h; sourceTree = "<group>"; };
+		87C2EFB71938748F00BED876 /* SLDockWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDockWindow.m; sourceTree = "<group>"; };
 		8C69E0FAF8D3415195CCE581 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A064C337382C41368A32CD42 /* SLAppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SLAppDelegate.h; sourceTree = "<group>"; };
 		B06771E5ADBD4EDC8F50F292 /* Slate-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Slate-Prefix.pch"; sourceTree = "<group>"; };
@@ -208,6 +214,8 @@
 				873B11741936D8CF008633FA /* SLDockDelegate.h */,
 				876FB7921934739400539357 /* SLDockItem.h */,
 				876FB7931934739400539357 /* SLDockItem.m */,
+				87C2EFB61938748F00BED876 /* SLDockWindow.h */,
+				87C2EFB71938748F00BED876 /* SLDockWindow.m */,
 				873B11781936EADB008633FA /* Configuration */,
 			);
 			path = Dock;
@@ -223,6 +231,8 @@
 				873B117C1936EADB008633FA /* SLDockViewLongPressInternal.h */,
 				876638F6193711AD004DFF8F /* SLDockViewButton.h */,
 				876638F7193711AD004DFF8F /* SLDockViewButton.m */,
+				87C2EFB31938705E00BED876 /* SLDockViewDraggableButton.h */,
+				87C2EFB41938705E00BED876 /* SLDockViewDraggableButton.m */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -536,6 +546,8 @@
 				876FB7941934739400539357 /* SLDockItem.m in Sources */,
 				603636F1E65A41778E01570F /* main.m in Sources */,
 				8734D08B1929776B00F7A486 /* SLKeys.m in Sources */,
+				87C2EFB81938748F00BED876 /* SLDockWindow.m in Sources */,
+				87C2EFB51938705E00BED876 /* SLDockViewDraggableButton.m in Sources */,
 				876638F5193709F2004DFF8F /* SLDockViewConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

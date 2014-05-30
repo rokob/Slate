@@ -4,6 +4,8 @@
 
 #import "SLDockDelegate.h"
 #import "SLDockItem.h"
+#import "SLDockViewDraggableButton.h"
+#import "SLDockWindow.h"
 
 #import <Pop/POP.h>
 
@@ -13,13 +15,14 @@ static const CGFloat kExtraOffsetY = 10.0f;
 //static const CGFloat kItemSpacingY = (kViewSize + kSpacingY) / 2.0f;
 //static const CGFloat kMaxOffsetX = kViewSize / 2.0f;
 
-@interface SLDockViewButton ()
+@interface SLDockViewButton () <SLDockViewDraggableButtonDelegate>
 {
   UIWindow *_window;
   NSArray *_navigationItems;
 
   NSArray *_navigationViews;
-  UIView *_button;
+  SLDockViewDraggableButton *_button;
+  CGPoint _buttonHome;
 
   UISwipeGestureRecognizer *_swipeUpRecognizer;
   UISwipeGestureRecognizer *_swipeDownRecognizer;
@@ -55,8 +58,8 @@ static const CGFloat kExtraOffsetY = 10.0f;
       _shift.y = _window.frame.size.height;
     }
 
-    _swipeUpRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeUp)];
-    _swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown)];
+    _swipeUpRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeUpWithVelocity:)];
+    _swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDownWithVelocity:)];
     _swipeUpRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
     _swipeDownRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
 
@@ -76,8 +79,8 @@ static const CGFloat kExtraOffsetY = 10.0f;
     case SLDockStateHidden:
       if (oldState == SLDockStateDisabled) {
         _navigationViews = [self constructNavigationViewsWithItems:_navigationItems];
-        [_window addGestureRecognizer:_swipeUpRecognizer];
-        [_window addGestureRecognizer:_swipeDownRecognizer];
+        //[_window addGestureRecognizer:_swipeUpRecognizer];
+        //[_window addGestureRecognizer:_swipeDownRecognizer];
       }
       break;
     case SLDockStateShowing:
@@ -115,7 +118,7 @@ static const CGFloat kExtraOffsetY = 10.0f;
 
 - (void)constructButton
 {
-  _button = [UIButton buttonWithType:UIButtonTypeSystem];
+  _button = [[SLDockViewDraggableButton alloc] init];
   _button.backgroundColor = _context.backgroundColor;
   _button.frame = CGRectMake(0, 0, kViewSize, kViewSize);
   _button.layer.cornerRadius = kViewSize/2.0f;
@@ -124,34 +127,33 @@ static const CGFloat kExtraOffsetY = 10.0f;
   CGFloat height = _button.frame.size.height;
   CGFloat y = _bottom ? _shift.y - height : height;
   _button.center = CGPointMake(x, y);
+  _buttonHome = _button.center;
+  [(SLDockWindow *)_window configureWithButton:_button];
+  _button.delegate = self;
   [_window addSubview:_button];
-
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    [self didSwipeUp];
-  });
 }
 
-- (void)addAnimationToView:(UIView *)view target:(CGPoint)target
+- (void)addAnimationToView:(UIView *)view target:(CGPoint)target velocity:(CGPoint)velocity
 {
   POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
   animation.toValue = [NSValue valueWithCGPoint:target];
-  animation.velocity = [NSValue valueWithCGPoint:CGPointMake(0.0f, 100.0f)];
+  animation.velocity = [NSValue valueWithCGPoint:velocity];
   animation.springBounciness = 9.0f;
   animation.springSpeed = 3.0f;
   [view.layer pop_addAnimation:animation forKey:@"spring"];
 }
 
-- (void)didSwipeUp
+- (void)didSwipeUpWithVelocity:(CGPoint)velocity
 {
-  [self toggleViews:_navigationViews visible:YES];
+  [self toggleViews:_navigationViews visible:YES velocity:velocity];
 }
 
-- (void)didSwipeDown
+- (void)didSwipeDownWithVelocity:(CGPoint)velocity
 {
-  [self toggleViews:_navigationViews visible:NO];
+  [self toggleViews:_navigationViews visible:NO velocity:velocity];
 }
 
-- (void)toggleViews:(NSArray *)views visible:(BOOL)visible
+- (void)toggleViews:(NSArray *)views visible:(BOOL)visible velocity:(CGPoint)velocity
 {
   CGFloat __block y = _bottom ? _shift.y : 0;
   [views enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
@@ -160,10 +162,32 @@ static const CGFloat kExtraOffsetY = 10.0f;
     CGPoint target = CGPointMake(view.layer.position.x, y); // + (visible ? 1 : 0)*idx*idx*2.5f
     if (animation) {
       animation.toValue = [NSValue valueWithCGPoint:target];
+      animation.velocity = [NSValue valueWithCGPoint:velocity];
     } else {
-      [self addAnimationToView:view target:target];
+      [self addAnimationToView:view target:target velocity:velocity];
+    }
+    if (idx == 4 && visible) {
+      [self addAnimationToView:self->_button target:target velocity:velocity];
+    } else if (idx == 4) {
+      [self addAnimationToView:self->_button target:self->_buttonHome velocity:velocity];
     }
   }];
+}
+
+#pragma mark -
+#pragma mark SLDockViewDraggableButtonDelegate
+
+- (void)draggableButtonDidBeginDragging:(SLDockViewDraggableButton *)button
+{
+}
+
+- (void)draggableButton:(SLDockViewDraggableButton *)button didEndDraggingWithVelocity:(CGPoint)velocity
+{
+  if (velocity.y < 0) {
+    [self didSwipeUpWithVelocity:velocity];
+  } else {
+    [self didSwipeDownWithVelocity:velocity];
+  }
 }
 
 @end

@@ -5,6 +5,7 @@
 #import "SLCreateNavigationController.h"
 #import "SLDockView.h"
 #import "SLDockItem.h"
+#import "SLDockWindow.h"
 
 @interface SLAppDelegate () <SLDockDelegate>
 {
@@ -16,14 +17,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  self.window = [[SLDockWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   self.window.backgroundColor = [UIColor whiteColor];
 
   SLCreateNavigationController *navController = [[SLCreateNavigationController alloc] init];
 
   _dock = [[SLDockView alloc] initWithWindow:self.window
                              navigationItems:[self navigationItems]
-                                   dockStyle:SLDockStyleLowerRightButton];
+                                   dockStyle:SLDockStyleLowerLeftButton];
   _dock.delegate = self;
   [_dock setEnabled:YES];
 
