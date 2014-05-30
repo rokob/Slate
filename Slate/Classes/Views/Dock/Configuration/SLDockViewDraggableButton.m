@@ -43,6 +43,7 @@
   }
   CGPoint p = [[touches anyObject] locationInView:self.superview];
   self.center = p;
+  [_delegate draggableButton:self didDragToPoint:p];
 
   _llastPoint = _lastPoint;
   _lastPoint = p;

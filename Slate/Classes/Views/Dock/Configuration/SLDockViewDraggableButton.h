@@ -13,6 +13,7 @@
 @protocol SLDockViewDraggableButtonDelegate <NSObject>
 
 - (void)draggableButtonDidBeginDragging:(SLDockViewDraggableButton *)button;
+- (void)draggableButton:(SLDockViewDraggableButton *)button didDragToPoint:(CGPoint)point;
 - (void)draggableButton:(SLDockViewDraggableButton *)button didEndDraggingWithVelocity:(CGPoint)velocity;
 
 @end

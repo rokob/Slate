@@ -111,7 +111,9 @@ static const CGFloat kExtraOffsetY = 10.0f;
     [navView setBackgroundColor:_context.backgroundColor];
     navView.layer.cornerRadius = kViewSize/2.0f;
     [navViews addObject:navView];
-    [_window addSubview:navView];
+    if (i!=4) {
+      [_window addSubview:navView];
+    }
   }
   return [navViews copy];
 }
@@ -156,10 +158,11 @@ static const CGFloat kExtraOffsetY = 10.0f;
 - (void)toggleViews:(NSArray *)views visible:(BOOL)visible velocity:(CGPoint)velocity
 {
   CGFloat __block y = _bottom ? _shift.y : 0;
+  CGFloat targetX = _left ? kViewSize : _shift.x - kViewSize;
   [views enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
     POPSpringAnimation *animation = [view.layer pop_animationForKey:@"spring"];
     y += (visible ? 1 : -1)*(self->_bottom ? -1 : 1)*(kExtraOffsetY + kViewSize);
-    CGPoint target = CGPointMake(view.layer.position.x, y); // + (visible ? 1 : 0)*idx*idx*2.5f
+    CGPoint target = CGPointMake(targetX, y); // + (visible ? 1 : 0)*idx*idx*2.5f
     if (animation) {
       animation.toValue = [NSValue valueWithCGPoint:target];
       animation.velocity = [NSValue valueWithCGPoint:velocity];
@@ -174,11 +177,32 @@ static const CGFloat kExtraOffsetY = 10.0f;
   }];
 }
 
+- (void)moveMenuViews:(NSArray *)views withAnchorPoint:(CGPoint)point
+{
+  CGFloat y = point.y;
+  CGFloat x = point.x;
+  CGFloat spacing = (point.x - kViewSize) / (CGFloat)[views count];
+  CGFloat targetX = _left ? kViewSize : _shift.x - kViewSize;
+  BOOL first = YES;
+  for (UIView *view in [views reverseObjectEnumerator]) {
+    if (!first) {
+      view.center = CGPointMake(MAX(targetX, x), y);
+    } else {
+      first = NO;
+    }
+    x -= spacing;
+    y += (self->_bottom ? 1 : -1)*(kExtraOffsetY + kViewSize);
+  }
+}
+
 #pragma mark -
 #pragma mark SLDockViewDraggableButtonDelegate
 
-- (void)draggableButtonDidBeginDragging:(SLDockViewDraggableButton *)button
+- (void)draggableButtonDidBeginDragging:(SLDockViewDraggableButton *)button { }
+
+- (void)draggableButton:(SLDockViewDraggableButton *)button didDragToPoint:(CGPoint)point
 {
+  [self moveMenuViews:_navigationViews withAnchorPoint:point];
 }
 
 - (void)draggableButton:(SLDockViewDraggableButton *)button didEndDraggingWithVelocity:(CGPoint)velocity
