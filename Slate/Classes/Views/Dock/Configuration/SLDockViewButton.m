@@ -169,10 +169,18 @@ static const CGFloat kExtraOffsetY = 10.0f;
     } else {
       [self addAnimationToView:view target:target velocity:velocity];
     }
-    if (idx == 4 && visible) {
-      [self addAnimationToView:self->_button target:target velocity:velocity];
-    } else if (idx == 4) {
-      [self addAnimationToView:self->_button target:self->_buttonHome velocity:velocity];
+    if (idx == 4) {
+      POPSpringAnimation *buttonAnimation = [self->_button.layer pop_animationForKey:@"spring"];
+      if (buttonAnimation) {
+        buttonAnimation.toValue = [NSValue valueWithCGPoint:(visible ? target : self->_buttonHome)];
+        buttonAnimation.velocity = [NSValue valueWithCGPoint:velocity];
+      } else {
+        if (visible) {
+          [self addAnimationToView:self->_button target:target velocity:velocity];
+        } else {
+          [self addAnimationToView:self->_button target:self->_buttonHome velocity:velocity];
+        }
+      }
     }
   }];
 }
@@ -207,7 +215,7 @@ static const CGFloat kExtraOffsetY = 10.0f;
 
 - (void)draggableButton:(SLDockViewDraggableButton *)button didEndDraggingWithVelocity:(CGPoint)velocity
 {
-  if (velocity.y < 0) {
+  if ((velocity.y < 0 && _bottom) || (velocity.y > 0 && !_bottom)) {
     [self didSwipeUpWithVelocity:velocity];
   } else {
     [self didSwipeDownWithVelocity:velocity];
